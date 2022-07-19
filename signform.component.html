@@ -1,0 +1,96 @@
+
+<div class="container">
+  <br>
+  <h1>Welcome to Optisol!</h1>
+  <pre></pre>
+  {{userform.value | json}}
+  <form #userform="ngForm">
+
+      <div class="form-group">
+
+          <label for="firstname">FirstName:</label><br>
+
+          <input type="text" required minlength="6" name="firstname" [class.is-invalid]="fname.invalid && fname.touched" [class.is-valid]="fname.valid" class = "form-control" #fname='ngModel' ngModel>
+
+          <div class="alert alert-danger" *ngIf="fname.touched && !fname.valid">
+          <div *ngIf="fname.errors?.['required']">First name is required!</div>
+          <div *ngIf="fname.errors?.['minlength']">First name must be a minimum of {{fname.errors?.['minlength'].requiredLength}} characters!</div> 
+          </div>
+
+      </div>
+
+      <pre></pre>
+
+      <div class="form-group">
+
+          <label for="lastname">LastName:</label><br>
+
+          <input type="text" required minlength="6" name="lastname" #lname='ngModel' [class.is-invalid]="lname.invalid && lname.touched" [class.is-valid]="lname.valid" class = "form-control" ngModel>
+          <div class="alert alert-danger" *ngIf="lname.touched && !lname.valid">
+            <div *ngIf="lname.errors?.['required']">Last name is required!</div>
+            <div *ngIf="lname.errors?.['minlength']">Last name must be a minimum of {{fname.errors?.['minlength'].requiredLength}} characters!</div> 
+            </div>
+
+      </div>
+
+      <pre></pre>
+
+      <div class="form-group">
+
+          <label for="email">EmailID:</label><br>
+
+          <input type="text" required pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com$" #email="ngModel" name="email"  [class.is-invalid]="email.invalid && email.touched" [class.is-valid]="email.valid" class = "form-control" ngModel>
+          <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+            <div *ngIf="email.errors?.['required']">Email id is required!</div>
+            <div *ngIf="email.errors?.['pattern']">Enter a valid email id!</div> 
+          </div>
+
+      </div>
+
+      <pre></pre>
+
+      <div class="form-group">
+
+          <label for="password">Password:</label><br>
+
+          <input type="text" required #pword="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,15}$" name="password"  [class.is-invalid]="pword.invalid && pword.touched" [class.is-valid]="pword.valid" class = "form-control" ngModel>
+
+          <div class="alert alert-danger" *ngIf="pword.touched && !pword.valid">
+            <div *ngIf="pword.errors?.['required']">Password is required!</div>
+            <div *ngIf="pword.errors?.['pattern']">*Password must contain at least one digit [0-9].<br><br>
+              *Password must contain at least one lowercase Latin character [a-z].<br><br>
+              *Password must contain at least one uppercase Latin character [A-Z].<br><br>
+              *Password must contain a length of at least 8 characters and a maximum of 15 characters.
+            </div> 
+          </div> 
+      </div>
+      
+      <div class="form-group">
+
+        <label for="password">Confirm Password:</label><br>
+
+        <input type="text" required pattern="{{pword.value}}" name="cpassword" [class.is-invalid]="cpword.invalid && cpword.touched" [class.is-valid]="cpword.valid" class = "form-control" #cpword="ngModel" ngModel>
+        <div class="alert alert-danger" *ngIf="cpword.touched && !cpword.valid">
+          <div *ngIf="cpword.errors?.['required']">Please confirm your password!</div>
+          <div *ngIf="cpword.errors?.['pattern']">Passwords are not matching!</div> 
+        </div>
+
+    </div>
+      <pre></pre>    
+      <div class="form-group">
+      <label for="birthday">Date of birth:</label>
+      <br>
+      <mat-form-field>
+      <input matInput [matDatepicker]="datepicker" placeholder="Select Date" #dob="ngModel" id="birthday" name="birthday" ngModel>
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+      </mat-form-field>
+      </div>
+      <pre></pre>
+       
+      <button class="btn btn-primary" [disabled]="userform.form.invalid" type="submit">Submit</button>
+
+  </form>
+</div>
+
+
